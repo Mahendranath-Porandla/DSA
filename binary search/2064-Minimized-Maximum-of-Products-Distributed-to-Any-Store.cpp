@@ -8,6 +8,11 @@ public:
     }
     int minimizedMaximum(int n, vector<int>& arr) {
         // NOTE THIS : minimize the maximum
+
+        // The problem "Minimized Maximum of Products Distributed to Any Store" involves distributing products in such a way that the maximum number of products assigned to any single store is minimized.
+
+        // ceil BS is used
+        
         int low = 1;
         int high = *max_element(arr.begin(), arr.end());
         int sz = arr.size();
