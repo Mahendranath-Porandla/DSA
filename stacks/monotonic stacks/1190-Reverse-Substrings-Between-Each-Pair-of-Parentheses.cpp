@@ -1,23 +1,29 @@
 class Solution {
 public:
     string reverseParentheses(string s) {
-        // brute force
-        vector<int> open;
-        // vector<int> close;
-        for(int i = 0; i < s.size(); i++){
-            if(s[i] == '('){
-                open.push_back(i);
-            }else if(s[i] == ')'){
-                int start = open.back();
-                int end = i;
-                reverse(s.begin()+start , s.begin()+end);
-                open.pop_back();
+        int n = s.size();
+        stack<int> open;
+        unordered_map<int, int> mp;
+        for (int i = 0; i < n; i++) {
+            char ch = s[i];
+            if (ch == '(') {
+                open.push(i);
+            } else if (ch == ')') {
+                int temp = open.top();
+                open.pop();
+                mp[temp] = i;
+                mp[i] = temp;
             }
         }
+        int flag = 1;
         string res;
-        for(int i = 0; i < s.size(); i++){
-            if(s[i] != '(' && s[i] != ')'){
-                res+=s[i];
+        for (int i = 0; i < n; i += flag) {
+            char ch = s[i];
+            if (ch == '(' || ch == ')') {
+                i = mp[i];
+                flag = -1 * flag;
+            } else {
+                res += ch;
             }
         }
         return res;
